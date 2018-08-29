@@ -8,88 +8,89 @@ var questionSet = [
         question: "What color is the sky?",
         answers: [
             "Blue",
-            "Answer two",
-            "Answer three",
-            "Answer four"
+            "Green",
+            "Pink",
+            "Red"
         ],
-        correctAnswer: "Answer one"
+        correctAnswer: "Blue"
     },
     {
-        question: "What is question two?",
+        question: "What is the capitol of California?",
         answers: [
-            "Answer one",
-            "Answer two",
-            "Answer three",
-            "Answer four"
+            "San Diego",
+            "Oakland",
+            "Los Angeles",
+            "Sacramento"
         ],
-        correctAnswer: "Answer one"
+        correctAnswer: "Sacramento"
     },
     {
-        question: "What is question three?",
+        question: "In what year was UCLA founded?",
         answers: [
-            "Answer one",
-            "Answer two",
-            "Answer three",
-            "Answer four"
+            "1911",
+            "1927",
+            "1919",
+            "1934"
         ],
-        correctAnswer: "Answer one"
+        correctAnswer: "1919"
     },
     {
-        question: "What is question four?",
+        question: "Who owns Amazon?",
         answers: [
-            "Answer one",
-            "Answer two",
-            "Answer three",
-            "Answer four"
+            "Elon Musk",
+            "Jeff Bezos",
+            "Peter Thiel",
+            "Bill Gates"
         ],
-        correctAnswer: "Answer one"
+        correctAnswer: "Jeff Bezos"
     },
     {
-        question: "What is question five?",
+        question: "What river is the longest in the world?",
         answers: [
-            "Answer one",
-            "Answer two",
-            "Answer three",
-            "Answer four"
+            "Nile",
+            "Amazon",
+            "Mississippi",
+            "Euphrates"
         ],
-        correctAnswer: "Answer one"
+        correctAnswer: "Amazon"
     },
     {
-        question: "What is question six?",
+        question: "When was the War of 1812?",
         answers: [
-            "Answer one",
-            "Answer two",
-            "Answer three",
-            "Answer four"
+            "1812",
+            "1813",
+            "1811",
+            "1809"
         ],
-        correctAnswer: "Answer one"
+        correctAnswer: "1812"
     },
     {
-        question: "What is question seven?",
+        question: "What is the tallest mountain in California?",
         answers: [
-            "Answer one",
-            "Answer two",
-            "Answer three",
-            "Answer four"
+            "Denali",
+            "Mt. McKinley",
+            "Mt. Whitney",
+            "Mt. Everest"
         ],
-        correctAnswer: "Answer one"
+        correctAnswer: "Mt. Whitney"
     },
     {
-        question: "What is question eight?",
+        question: "What company owns Xbox?",
         answers: [
-            "Answer one",
-            "Answer two",
-            "Answer three",
-            "Answer four"
+            "Sony",
+            "Nintendo",
+            "Atari",
+            "Microsoft"
         ],
-        correctAnswer: "Answer one"
+        correctAnswer: "Microsoft"
     }
 ]
 for (let i=0; i < questionSet.length; i++){
     $("#question"+i).html(questionSet[i].question);
-    for (let j=0; j < 4; j++){
+    for (let j=0; j < questionSet[i].answers.length; j++){
         var newInput = $("<input type='radio'>");
         newInput.attr("id", "answer-"+i+"-"+j);
+        newInput.attr("class", "option");
         newInput.attr("name", "answer"+i);
         newInput.attr("value", questionSet[i].answers[j]);
         $("#answers"+i).append(newInput);
