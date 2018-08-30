@@ -1,9 +1,24 @@
 $(document).ready(function() {
 
-var correct = 0;
-var wrong = 0;
+var correct;
+var wrong;
+var time;
+var isRunning;
+var intervalId;
+var questionSet = [];
 
-var questionSet = [
+
+function init(){
+     correct = 0;
+     wrong = 0;
+     time = 45;
+     isRunning = false;
+
+     $("#timer").html(time);
+    $("#quiz-page").hide();
+    $("#final-page").hide();
+
+    questionSet = [
     {
         question: "What color is the sky?",
         answers: [
@@ -84,25 +99,53 @@ var questionSet = [
         ],
         correctAnswer: "Microsoft"
     }
-]
-for (let i=0; i < questionSet.length; i++){
+];
+
+for (let i = 0; i <questionSet.length; i++){
     $("#question"+i).html(questionSet[i].question);
     for (let j=0; j < questionSet[i].answers.length; j++){
+        //creates one radio button for each possible answer
         var newInput = $("<input type='radio'>");
         newInput.attr("id", "answer-"+i+"-"+j);
         newInput.attr("class", "option");
         newInput.attr("name", "answer"+i);
         newInput.attr("value", questionSet[i].answers[j]);
         $("#answers"+i).append(newInput);
+        
+        //creates a new label for each button
         var newLabel = $("<label>");
         newLabel.attr("for", "answer-"+i+"-"+j);
         $("#answers"+i).append(newLabel);
         newLabel.text(questionSet[i].answers[j]);
     }
+   }
+}
+init();
+
+function startQuiz(){
+    $("#quiz-page").show();
+    $("#start-page").hide();
+    clearInterval(intervalId);
+    intervalId = setInterval(quizTimer, 1000);
 }
 
+function quizTimer(){
+    time--;
+    $("#timer").html(time);
+    if (time === 0){
+        endQuiz();
+    }
+}
 
-$(".finish").on("click", function(){
+$("#start").on("click", startQuiz);
+
+
+//uses two loops to add the questions and answers to DOM elements
+ //ends init functionfor (let i=0; i < questionSet.length; i++){
+function endQuiz(){
+    clearInterval(intervalId);
+    $("#quiz-page").hide();
+    $("#final-page").show();
     var userAnswers = [
         $("input[name='answer0']:checked").val(),
         $("input[name='answer1']:checked").val(),
@@ -125,7 +168,38 @@ console.log(userAnswers);
         }
     }
     console.log(correct, wrong);
-});
+    var correctScore = $("<h3 class='results'>");
+    var wrongScore = $("<h3 class='results'>");
+    correctScore.text("Correct: "+ correct);
+    wrongScore.text("Incorrect: " + wrong);
+    $("#final-page").append(correctScore, wrongScore);
+}
+
+
+$(".finish").on("click", endQuiz);
+//     var userAnswers = [
+//         $("input[name='answer0']:checked").val(),
+//         $("input[name='answer1']:checked").val(),
+//         $("input[name='answer2']:checked").val(),
+//         $("input[name='answer3']:checked").val(),
+//         $("input[name='answer4']:checked").val(),
+//         $("input[name='answer5']:checked").val(),
+//         $("input[name='answer6']:checked").val(),
+//         $("input[name='answer7']:checked").val(),
+//     ]
+
+// console.log(userAnswers);
+
+//     for (let i=0; i<questionSet.length; i++){
+//         if(userAnswers[i] === questionSet[i].correctAnswer){
+//             correct++;
+//         }
+//         else{
+//             wrong++;
+//         }
+//     }
+//     console.log(correct, wrong);
+// });
 
 
 // for (let i=0; i < questionSet.length; i++){

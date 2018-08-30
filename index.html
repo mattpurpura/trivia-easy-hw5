@@ -11,7 +11,14 @@
     <title>Trivia Game</title>
 </head>
 <body>
-    <div class="container">
+    <div class = "container" id="start-page">
+        <div><h1>TRIVIA TIME</h1></div>
+        <button id="start">Start Quiz</button>
+    </div>
+    <div class="container" id="quiz-page">
+            <div class="row">
+                <h3>Time Remaining: <span id="timer"></span></h3>
+            </div> 
             <div class="row" id="question0">
                 
             </div>
@@ -77,6 +84,10 @@
                 </fieldset>
             </div>
             <button class="finish">Submit</button>
+    </div>
+    <div class = "container" id="final-page">
+        <h1 id="final-title">Results</h1>
+        
     </div>
 
 </body>
