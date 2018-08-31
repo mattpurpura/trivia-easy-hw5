@@ -2,6 +2,7 @@ $(document).ready(function() {
 
 var correct;
 var wrong;
+var unanswered;
 var time;
 var isRunning;
 var intervalId;
@@ -11,6 +12,7 @@ var questionSet = [];
 function init(){
      correct = 0;
      wrong = 0;
+     unanswered=0;
      time = 45;
      isRunning = false;
 
@@ -102,7 +104,11 @@ function init(){
 ];
 
 for (let i = 0; i <questionSet.length; i++){
-    $("#question"+i).html(questionSet[i].question);
+    var newH = $("<h3 class='question'>");
+    var que = (questionSet[i].question);
+    newH.text(que);
+    $("#question"+i).append(newH);
+    
     for (let j=0; j < questionSet[i].answers.length; j++){
         //creates one radio button for each possible answer
         var newInput = $("<input type='radio'>");
@@ -163,6 +169,10 @@ console.log(userAnswers);
         if(userAnswers[i] === questionSet[i].correctAnswer){
             correct++;
         }
+        else if(!userAnswers[i]){
+            unanswered++;
+        }
+
         else{
             wrong++;
         }
@@ -170,9 +180,17 @@ console.log(userAnswers);
     console.log(correct, wrong);
     var correctScore = $("<h3 class='results'>");
     var wrongScore = $("<h3 class='results'>");
+    var unansweredScore = $("<h3 class='results'>");
     correctScore.text("Correct: "+ correct);
     wrongScore.text("Incorrect: " + wrong);
-    $("#final-page").append(correctScore, wrongScore);
+    unansweredScore.text("Unanswered: " + unanswered);
+    $("#final-page").append(correctScore, wrongScore, unansweredScore);
+    if (correct <= 4){
+        $("#failed").show();
+    }
+    else if (correct > 4){
+        $("#passed").show();
+    }
 }
 
 
